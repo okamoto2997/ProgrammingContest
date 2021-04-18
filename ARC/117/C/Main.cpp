@@ -36,7 +36,7 @@ int main(){
         if (rule.find(C.substr(k, j - k + 1)) != rule.end()){
           C.replace(k, j - k + 1, rule[C.substr(k, j - k + 1)]);
           // cerr << "\"" << C << "\"" << endl;
-          j = k + 1;
+          j = k;
           break;
         }
         else
