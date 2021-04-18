@@ -62,7 +62,7 @@ namespace log{
   }
 }
 
-static const char* current_time(){
+[[maybe_unused]] static const char* current_time(){
   static char buf[20] = {};
   time_t t = time(nullptr);
   tm* tp = localtime(&t);
@@ -71,10 +71,12 @@ static const char* current_time(){
 }
 #endif
 
-// #define MSG(tag, _fmt, ...) \
-//   fmt::format("{} [{}:{:3}] {:<5}: " _fmt, toolkit::current_time(), \
-//     std::filesystem::path(__FILE__).filename().c_str(), \
-//     __LINE__, #tag __VA_OPT__(,) __VA_ARGS__)
+/*
+#define MSG(tag, _fmt, ...) \
+  fmt::format("{} [{}:{:3}] {:<5}: " _fmt, toolkit::current_time(), \
+    std::filesystem::path(__FILE__).filename().c_str(), \
+    __LINE__, #tag __VA_OPT__(,) __VA_ARGS__)
+*/
 
 #define MSG(tag, _fmt, ...)                                             \
   [](){                                                                 \

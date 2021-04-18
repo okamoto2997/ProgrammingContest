@@ -17,5 +17,6 @@ fi
 
 find in -type f | while read input; do
   output=`basename ${input} .in`.out
-  ./${EXE} < ${input} > out/${output}
+  echo "test case: ${input}"
+  ./${EXE} < ${input} | tee out/${output}
 done
