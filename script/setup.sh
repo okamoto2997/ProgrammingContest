@@ -16,6 +16,7 @@ cd $1
 
 RBASE=`realpath --relative-to=. ${ROOT}`
 ln -snf ${RBASE}/base/Makefile .
+ln -snf ${RBASE}/base/lib .
 ln -snf ${RBASE}/script .
 
 mkdir -p template
@@ -25,9 +26,9 @@ RBASE=`realpath --relative-to=. ${BASE}/A`
 ln -snf ${RBASE}/Makefile .
 cp ${RBASE}/Main.cpp .
 
-mkdir in
+mkdir -p in
 touch in/1.in
-mkdir out
+mkdir -p out
 echo "*
 !.gitignore" > out/.gitignore
 
