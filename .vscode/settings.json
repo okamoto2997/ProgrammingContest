@@ -1,0 +1,5 @@
+{
+  "C_Cpp.clang_format_fallbackStyle": "none",
+  "editor.formatOnSave": true,
+  "C_Cpp.formatting": "vcFormat"
+}
