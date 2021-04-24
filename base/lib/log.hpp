@@ -55,14 +55,18 @@
 #endif
 
 #if LOG_LEVEL > LOG_LEVEL_NONE
-namespace log{
+
+#include <ctime>
+#include <filesystem>
+
+namespace log {
   static std::reference_wrapper<std::ostream> _dest = std::ref(std::cerr);
-  inline void init(std::ostream& dest){
+  inline void init(std::ostream& dest) {
     _dest = std::ref(dest);
   }
 }
 
-[[maybe_unused]] static const char* current_time(){
+[[maybe_unused]] static const char* current_time() {
   static char buf[20] = {};
   time_t t = time(nullptr);
   tm* tp = localtime(&t);
