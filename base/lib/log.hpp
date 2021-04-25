@@ -79,7 +79,7 @@ namespace log{
 */
 
 #define MSG(tag, _fmt, ...)                                             \
-  [](){                                                                 \
+  [&](){                                                                 \
   static char buf[80];                                                  \
   snprintf(buf, 80, "%s [%s:%3d] %-5s: " _fmt,                          \
     current_time(), std::filesystem::path(__FILE__).filename().c_str(), \
