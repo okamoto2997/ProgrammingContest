@@ -22,7 +22,7 @@ ln -snf ${RBASE}/script .
 mkdir -p template
 cd template
 
-RBASE=`realpath --relative-to=. ${BASE}/A`
+RBASE=`realpath --relative-to=. ${BASE}/template`
 ln -snf ${RBASE}/Makefile .
 cp ${RBASE}/Main.cpp .
 
@@ -33,7 +33,5 @@ echo "*
 !.gitignore" > out/.gitignore
 
 cd ../
-
-cp -r template A
 
 echo "completed. Good luck!"
