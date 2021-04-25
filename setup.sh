@@ -17,7 +17,8 @@ cd $1
 RBASE=`realpath --relative-to=. ${ROOT}`
 ln -snf ${RBASE}/base/Makefile .
 ln -snf ${RBASE}/base/lib .
-ln -snf ${RBASE}/script .
+ln -snf ${RBASE}/base/make_upload.sh .
+ln -snf ${RBASE}/base/test.sh .
 
 mkdir -p template
 cd template
@@ -32,6 +33,6 @@ mkdir -p out
 echo "*
 !.gitignore" > out/.gitignore
 
-cd ../
+cd /
 
 echo "completed. Good luck!"
