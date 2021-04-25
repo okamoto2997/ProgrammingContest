@@ -3,10 +3,12 @@
 #include <string>
 #include <algorithm>
 
-#include "../lib/log.hpp"
+#include "lib/log.hpp"
+#include "lib/utility.hpp"
 
 using namespace std;
+using namespace lib;
 
-int main() {
+int main(){
   return 0;
 }
