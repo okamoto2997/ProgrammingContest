@@ -55,6 +55,9 @@
 #endif
 
 #if LOG_LEVEL > LOG_LEVEL_NONE
+#include <ctime>
+#include <filesystem>
+
 namespace log{
   static std::reference_wrapper<std::ostream> _dest = std::ref(std::cerr);
   inline void init(std::ostream& dest){
