@@ -1,0 +1,3 @@
+ALL=Main
+
+include ../Makefile

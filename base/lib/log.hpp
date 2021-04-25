@@ -87,6 +87,6 @@ namespace log {
   static char buf[80];                                                  \
   snprintf(buf, 80, "%s [%s:%3d] %-5s: " _fmt,                          \
     current_time(), std::filesystem::path(__FILE__).filename().c_str(), \
-    __LINE__, #tag __VA_OPT__(,) __VA_ARGS__);                          \
+    __LINE__, #tag __VA_OPT__(,) __VA_ARGS__ );                          \
   return buf;                                                           \
   }()
