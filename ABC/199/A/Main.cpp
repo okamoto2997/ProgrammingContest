@@ -10,12 +10,8 @@
 using namespace std;
 
 int main(){
-  int N, L;
-  cin >> N >> L;
-  vector<string> S(N);
-  for (auto& s : S) cin >> s;
-  sort(S.begin(), S.end());
-  for (auto& s : S) cout << s;
-  cout << endl;
+  int A, B, C;
+  cin >> A >> B >> C;
+  cout << (A * A + B * B < C* C ? "Yes" : "No") << endl;
   return 0;
 }

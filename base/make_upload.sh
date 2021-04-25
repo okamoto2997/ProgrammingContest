@@ -2,6 +2,7 @@
 
 if [ -z "$1" ]; then
   echo "Usage: $0 main_source"
+  exit 1
 fi
 
 SOURCE=$1
@@ -13,6 +14,6 @@ trap 'rm -f ${SYSTEM_H} ${CONTENT}' EXIT
 sed -n "/^#include *<.*>/p" < ${SOURCE} > ${SYSTEM_H}
 sed "/^#include *<.*>/d" < ${SOURCE} > ${CONTENT}
 
-g++ -E -x c++ -I${DIR} -DNDEBUG ${CONTENT} | sed "/^#/d" | sed "/^ *$/d" >> ${SYSTEM_H}
+g++ -E -x c++ -I${DIR} -I${DIR}/../ -DNDEBUG ${CONTENT} | sed "/^#/d" | sed "/^ *$/d" >> ${SYSTEM_H}
 
 mv ${SYSTEM_H} ${DIR}/upload.cpp

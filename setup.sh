@@ -6,7 +6,7 @@ if [ -z "$1" ]; then
 fi
 
 ROOT=`dirname $0`
-ROOT=`cd ${ROOT}/../; pwd`
+ROOT=`cd ${ROOT}; pwd`
 
 BASE=${ROOT}/base
 
@@ -17,7 +17,8 @@ cd $1
 RBASE=`realpath --relative-to=. ${ROOT}`
 ln -snf ${RBASE}/base/Makefile .
 ln -snf ${RBASE}/base/lib .
-ln -snf ${RBASE}/script .
+ln -snf ${RBASE}/base/make_upload.sh .
+ln -snf ${RBASE}/base/test.sh .
 
 mkdir -p template
 cd template
@@ -32,6 +33,10 @@ mkdir -p out
 echo "*
 !.gitignore" > out/.gitignore
 
+<<<<<<< HEAD:script/setup.sh
 cd ../
+=======
+cd /
+>>>>>>> e427f9d4ee5f1daa4d460db684fafee4afbad93c:setup.sh
 
 echo "completed. Good luck!"

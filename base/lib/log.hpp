@@ -55,11 +55,10 @@
 #endif
 
 #if LOG_LEVEL > LOG_LEVEL_NONE
-
 #include <ctime>
 #include <filesystem>
 
-namespace log {
+namespace log_system{
   static std::reference_wrapper<std::ostream> _dest = std::ref(std::cerr);
   inline void init(std::ostream& dest) {
     _dest = std::ref(dest);
@@ -75,15 +74,8 @@ namespace log {
 }
 #endif
 
-/*
-#define MSG(tag, _fmt, ...) \
-  fmt::format("{} [{}:{:3}] {:<5}: " _fmt, toolkit::current_time(), \
-    std::filesystem::path(__FILE__).filename().c_str(), \
-    __LINE__, #tag __VA_OPT__(,) __VA_ARGS__)
-*/
-
 #define MSG(tag, _fmt, ...)                                             \
-  [](){                                                                 \
+  [&](){                                                                 \
   static char buf[80];                                                  \
   snprintf(buf, 80, "%s [%s:%3d] %-5s: " _fmt,                          \
     current_time(), std::filesystem::path(__FILE__).filename().c_str(), \
