@@ -1,8 +1,5 @@
 #pragma once
 
-#include <string>
-#include <iostream>
-
 namespace lib{
   std::string readline(std::istream& src = std::cin){
     std::string line;
@@ -31,6 +28,7 @@ namespace lib{
   template<class... T>
   std::tuple<T...> read_elems(std::istream& src = std::cin){
     std::tuple<T...> buf;
+
     return read_elem<0, typeof(buf), T...>(buf, src);
   }
 

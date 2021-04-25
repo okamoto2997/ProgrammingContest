@@ -1,0 +1,1 @@
+../base/make_upload.sh
