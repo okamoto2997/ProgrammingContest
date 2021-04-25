@@ -58,7 +58,7 @@
 #include <ctime>
 #include <filesystem>
 
-namespace log{
+namespace log_system{
   static std::reference_wrapper<std::ostream> _dest = std::ref(std::cerr);
   inline void init(std::ostream& dest){
     _dest = std::ref(dest);
