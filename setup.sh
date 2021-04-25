@@ -6,7 +6,7 @@ if [ -z "$1" ]; then
 fi
 
 ROOT=`dirname $0`
-ROOT=`cd ${ROOT}/../; pwd`
+ROOT=`cd ${ROOT}; pwd`
 
 BASE=${ROOT}/base
 

@@ -1,13 +1,7 @@
 #/bin/sh
 
-if [ -z "$1" ]; then
-  echo "Usage: $0 path-to-executable"
-  exit 1
-fi
-
-
-DIR=`dirname $1`/
-EXE=`basename $1`
+DIR=./
+EXE=Main
 
 cd ${DIR}
 
