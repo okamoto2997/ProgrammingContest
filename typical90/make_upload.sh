@@ -12,7 +12,7 @@ CONTENT=`mktemp make_upload.content.XXXXXX`
 trap 'rm -f ${SYSTEM_H} ${CONTENT}' EXIT
 
 sed -n "/^#include *<.*>/p" < ${SOURCE} > ${SYSTEM_H}
-sed "/^#include *<.*>/d" < ${SOURCE} > ${CONTENT}
+sed    "/^#include *<.*>/d" < ${SOURCE} > ${CONTENT}
 
 g++ -E -x c++ -I${DIR} -I${DIR}/../ -DNDEBUG ${CONTENT} | sed "/^#/d" | sed "/^ *$/d" >> ${SYSTEM_H}
 
