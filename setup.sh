@@ -25,7 +25,7 @@ cd template
 
 RBASE=`realpath --relative-to=. ${BASE}/template`
 ln -snf ${RBASE}/Makefile .
-cp ${RBASE}/Main.cpp .
+cp -n ${RBASE}/Main.cpp .
 
 mkdir -p in
 touch in/1.in
