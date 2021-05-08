@@ -24,15 +24,15 @@ int main(){
     cerr << "current state:\n";
     for(int h = 0; h < H; ++h){
       for(int w = 0; w < W; ++w)
-        cerr << (root[idx(w, h)] < 0 ? 'o' : 'X');
+        cerr << (root[idx(h, w)] < 0 ? 'o' : 'X');
       cerr << "\n";
     }
-    cerr << "\n";
     int t = read();
     if(t == 1){
       cerr << "draw:\n";
       auto [r, c] = read_elems<int, int>();
       --r, --c;
+      cerr << "r: " << r << ", c: " << c << "\n";
       int index = idx(r, c);
       if(root[index] < 0){
         if(r > 0 && root[idx(r - 1, c)] >= 0) neighbor.emplace_back(idx(r - 1, c));
@@ -42,10 +42,8 @@ int main(){
 
         if(neighbor.size() == 0){
           root[index] = index;
-          continue;
         }else if(neighbor.size() == 1){
           root[index] = find_root(neighbor.back(), root);
-          continue;
         }else{
           root[index] = index;
           for(auto n : neighbor)
@@ -56,10 +54,12 @@ int main(){
       cerr << "check:\n";
       auto [ra, ca, rb, cb] = read_elems<int, int, int, int>();
       --ra, --ca, --rb, --cb;
+      cerr << "from (" << ra << ", " << ca << ") to (" << rb << ", " << cb << ")\n";
       const int ia = idx(ra, ca);
       const int ib = idx(rb, cb);
       cerr << (root[ia] >= 0 && root[ib] >= 0 && find_root(ia, root) == find_root(ib, root) ? "Yes" : "No") << "\n";
     }
+    cerr << "\n";
   }
   cout << flush;
   return 0;
