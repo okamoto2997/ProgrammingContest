@@ -33,10 +33,4 @@ mkdir -p out
 echo "*
 !.gitignore" > out/.gitignore
 
-<<<<<<< HEAD:script/setup.sh
-cd ../
-=======
-cd /
->>>>>>> e427f9d4ee5f1daa4d460db684fafee4afbad93c:setup.sh
-
 echo "completed. Good luck!"
