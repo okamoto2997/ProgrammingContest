@@ -19,6 +19,7 @@ ln -snf ${RBASE}/base/Makefile .
 ln -snf ${RBASE}/base/lib .
 ln -snf ${RBASE}/base/make_upload.sh .
 ln -snf ${RBASE}/base/test.sh .
+ln -snf ${RBASE}/base/setup.sh .
 
 mkdir -p template
 cd template
