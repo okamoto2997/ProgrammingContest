@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdarg>
+
 namespace lib{
 
   using i64 = int64_t;
@@ -34,15 +36,17 @@ namespace lib{
     return buf;
   }
 
-  template<size_t INDEX, class T>
-  T& read_elem(T& buf, std::istream&){
-    return buf;
-  }
+  namespace{
+    template<size_t INDEX, class T>
+    T& read_elem(T& buf, std::istream&){
+      return buf;
+    }
 
-  template<size_t INDEX, class T, class F, class... After>
-  T& read_elem(T& buf, std::istream& src = std::cin){
-    std::get<INDEX>(buf) = read<F>(src);
-    return read_elem<INDEX + 1, T, After...>(buf, src);
+    template<size_t INDEX, class T, class F, class... After>
+    T& read_elem(T& buf, std::istream& src = std::cin){
+      std::get<INDEX>(buf) = read<F>(src);
+      return read_elem<INDEX + 1, T, After...>(buf, src);
+    }
   }
 
   template<class... T>
@@ -52,4 +56,58 @@ namespace lib{
     return read_elem<0, typeof(buf), T...>(buf, src);
   }
 
+  namespace{
+    template<class T>
+    std::string to_string(const T& t, char){
+      return std::to_string(t);
+    }
+
+    template<>
+    std::string to_string(const std::string& t, char){
+      return t;
+    }
+
+    template<class T>
+    std::string to_string(const std::vector<T>& t, char delim){
+      std::string ret;
+      if (t.size()){
+        auto iter = t.begin();
+        ret = to_string(*iter, delim);
+        for (++iter; iter != t.end(); ++iter)
+          ret += delim + to_string(*iter, delim);
+      }
+      return ret;
+    }
+
+    template<class T>
+    std::string print(const T& t, char delim){
+      return to_string(t, delim);
+    }
+
+    template<class T, class ...Args>
+    std::string print(char delim, const T& t, const Args... args){
+      return to_string(t, delim) + delim + print(args...);
+    }
+  }
+
+  template<class ...Args>
+  std::string print(char delim, const Args... args){
+    return format(delim, args...);
+  }
+
+  std::string strprintf(const char* fmt, ...){
+    va_list ap;
+    va_start(ap, fmt);
+    char* buffer;
+    [[maybe_unused]] int size = vasprintf(&buffer, fmt, ap);
+    va_end(ap);
+    std::string ret(buffer);
+    free(buffer);
+    return ret;
+  }
+
+  template<class V>
+  auto sort(V& v){
+    return sort(begin(v), end(v));
+  }
 }

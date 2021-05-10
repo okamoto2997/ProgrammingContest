@@ -17,6 +17,26 @@
 #  define LOG_LEVEL LOG_LEVEL_NONE
 #endif
 
+#if LOG_LEVEL > LOG_LEVEL_NONE
+#include <ctime>
+#include <filesystem>
+
+namespace log_system{
+  static std::reference_wrapper<std::ostream> _dest = std::ref(std::cerr);
+  inline void init(std::ostream& dest){
+    _dest = std::ref(dest);
+  }
+}
+
+[[maybe_unused]] static const char* current_time(){
+  static char buf[20] = {};
+  time_t t = time(nullptr);
+  tm* tp = localtime(&t);
+  strftime(buf, 20, "%F %H:%M:%S", tp);
+  return buf;
+}
+#endif
+
 #define ERROR_MSG(fmt, ...) MSG(Error, fmt, __VA_ARGS__)
 #define  WARN_MSG(fmt, ...) MSG( Warn, fmt, __VA_ARGS__)
 #define  INFO_MSG(fmt, ...) MSG( Info, fmt, __VA_ARGS__)
@@ -24,7 +44,7 @@
 
 #if LOG_LEVEL >= LOG_LEVEL_ERROR
 #define ERROR_TO(dest, fmt, ...) dest << ERROR_MSG(fmt, __VA_ARGS__) << std::endl
-#define ERROR(fmt, ...) ERROR_TO(log::_dest.get(), fmt, __VA_ARGS__)
+#define ERROR(fmt, ...) ERROR_TO(log_system::_dest.get(), fmt, __VA_ARGS__)
 #else
 #define ERROR_TO(dest, fmt, ...)
 #define ERROR(fmt, ...)
@@ -32,7 +52,7 @@
 
 #if LOG_LEVEL >= LOG_LEVEL_WARN
 #define WARN_TO(dest, fmt, ...) dest << WARN_MSG(fmt, __VA_ARGS__) << std::endl
-#define WARN(fmt, ...) WARN_TO(log::_dest.get(), fmt, __VA_ARGS__)
+#define WARN(fmt, ...) WARN_TO(log_system::_dest.get(), fmt, __VA_ARGS__)
 #else
 #define WARN_TO(dest, fmt, ...)
 #define WARN(fmt, ...)
@@ -40,7 +60,7 @@
 
 #if LOG_LEVEL >= LOG_LEVEL_INFO
 #define INFO_TO(dest, fmt, ...) dest << INFO_MSG(fmt, __VA_ARGS__) << std::endl
-#define INFO(fmt, ...) INFO_TO(log::_dest.get(), fmt, __VA_ARGS__)
+#define INFO(fmt, ...) INFO_TO(log_system::_dest.get(), fmt, __VA_ARGS__)
 #else
 #define INFO_TO(dest, fmt, ...)
 #define INFO(fmt, ...)
@@ -48,30 +68,10 @@
 
 #if LOG_LEVEL >= LOG_LEVEL_DEBUG
 #define DEBUG_TO(dest, fmt, ...) dest << DEBUG_MSG(fmt, __VA_ARGS__) << std::endl
-#define DEBUG(fmt, ...) DEBUG_TO(log::_dest.get(), fmt, __VA_ARGS__)
+#define DEBUG(fmt, ...) DEBUG_TO(log_system::_dest.get(), fmt, __VA_ARGS__)
 #else
 #define DEBUG_TO(dest, fmt, ...)
 #define DEBUG(fmt, ...)
-#endif
-
-#if LOG_LEVEL > LOG_LEVEL_NONE
-#include <ctime>
-#include <filesystem>
-
-namespace log_system{
-  static std::reference_wrapper<std::ostream> _dest = std::ref(std::cerr);
-  inline void init(std::ostream& dest) {
-    _dest = std::ref(dest);
-  }
-}
-
-[[maybe_unused]] static const char* current_time() {
-  static char buf[20] = {};
-  time_t t = time(nullptr);
-  tm* tp = localtime(&t);
-  strftime(buf, 20, "%F %H:%M:%S", tp);
-  return buf;
-}
 #endif
 
 #define MSG(tag, _fmt, ...)                                             \
