@@ -2,6 +2,7 @@
 
 if [ -z "$1" ]; then
   echo "Usage: $0 Q-id"
+  exit 1
 fi
 
 QID=$1
