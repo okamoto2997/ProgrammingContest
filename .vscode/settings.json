@@ -4,6 +4,7 @@
   "C_Cpp.formatting": "vcFormat",
   "files.associations": {
     "initializer_list": "cpp",
-    "iterator": "cpp"
+    "iterator": "cpp",
+    "numeric": "cpp"
   }
 }
