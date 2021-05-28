@@ -99,41 +99,21 @@ namespace lib {
 }
 using namespace std;
 using namespace lib;
-int find_root(int index, vector<int>& root) {
-  if (root[index] == index) return index;
-  return root[index] = find_root(root[index], root);
-}
 int main() {
-  auto [H, W] = read_elems<int, int>();
-  auto idx = [W = W](int r, int c) {return r * W + c;};
-  vector<int> root(H * W, -1);
-  int Q = read();
-  vector<int> neighbor; neighbor.reserve(4);
-  for (int q = 0; q < Q; ++q) {
-    int t = read();
-    if (t == 1) {
-      auto [r, c] = read_elems<int, int>();
-      --r, --c;
-      int index = idx(r, c);
-      if (root[index] < 0) {
-        neighbor.clear();
-        if (r > 0 && root[idx(r - 1, c)] >= 0) neighbor.emplace_back(idx(r - 1, c));
-        if (H - 1 > r && root[idx(r + 1, c)] >= 0) neighbor.emplace_back(idx(r + 1, c));
-        if (c > 0 && root[idx(r, c - 1)] >= 0) neighbor.emplace_back(idx(r, c - 1));
-        if (W - 1 > c && root[idx(r, c + 1)] >= 0) neighbor.emplace_back(idx(r, c + 1));
-        root[index] = index;
-        for (auto n : neighbor)
-          root[find_root(n, root)] = index;
-      }
-    }
-    else if (t == 2) {
-      auto [ra, ca, rb, cb] = read_elems<int, int, int, int>();
-      --ra, --ca, --rb, --cb;
-      const int ia = idx(ra, ca);
-      const int ib = idx(rb, cb);
-      cout << (root[ia] >= 0 && root[ib] >= 0 && find_root(ia, root) == find_root(ib, root) ? "Yes" : "No") << "\n";
-    }
+  int N = read();
+  auto A = read_vector<int>(N);
+  auto B = read_vector<int>(N);
+  auto C = read_vector<int>(N);
+  vector<u64> a(46, 0), b(46, 0), c(46, 0);
+  for (int n = 0; n < N; ++n) {
+    ++a[A[n] % 46];
+    ++b[B[n] % 46];
+    ++c[C[n] % 46];
   }
-  cout << flush;
+  u64 ret = 0;
+  for (int i = 0; i < 46; ++i)
+    for (int j = 0; j < 46; ++j)
+      ret += a[i] * b[j] * c[(92 - i - j) % 46];
+  cout << ret << endl;
   return 0;
 }
