@@ -5,7 +5,6 @@
 #include <map>
 #include <algorithm>
 #include <cmath>
-#include <cstdarg>
 
 #include "lib/log.hpp"
 #include "lib/utility.hpp"
