@@ -1,4 +1,4 @@
-ALL=Main generator
+ALL=Main
 CXXFLAGS=-I../
 
 include ../Makefile
