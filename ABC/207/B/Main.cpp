@@ -14,4 +14,12 @@
 using namespace std;
 using namespace lib;
 
-int main() { return 0; }
+int main() {
+  auto [A, B, C, D] = read_elems<int, int, int, int>();
+  // exists n s.t. A + B*n <= C*n*D
+  if (C * D - B <= 0) cout << -1 << endl;
+  else
+    cout << (u64)ceil(1.0 * A / (C * D - B)) << endl;
+
+  return 0;
+}

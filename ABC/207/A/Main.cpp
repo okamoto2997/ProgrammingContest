@@ -14,4 +14,8 @@
 using namespace std;
 using namespace lib;
 
-int main() { return 0; }
+int main() {
+  auto [A, B, C] = read_elems<int, int, int>();
+  cout << A + B + C - min(A, min(B, C)) << "\n";
+  return 0;
+}

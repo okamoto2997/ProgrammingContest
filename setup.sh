@@ -35,3 +35,7 @@ echo "*
 !.gitignore" > out/.gitignore
 
 echo "completed. Good luck!"
+
+cd ..
+
+bash 

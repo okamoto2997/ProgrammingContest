@@ -14,3 +14,6 @@ if [ ! -e "$QID" ]; then
 else
   echo "${QID} already exists."
 fi
+
+cd ${QID}
+bash
