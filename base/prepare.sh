@@ -16,4 +16,5 @@ else
 fi
 
 cd ${QID}
+code Main.cpp
 bash

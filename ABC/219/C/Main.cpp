@@ -15,14 +15,11 @@ using namespace std;
 using namespace lib;
 
 int main() {
-  int X = read<int>();
-  if (X < 40) cout << 40 - X;
-  else if (X < 70)
-    cout << 70 - X;
-  else if (X < 90)
-    cout << 90 - X;
-  else
-    cout << "expert";
-  cout << endl;
+  string X = read<string>();
+  string rev = "abcdefghijklmnopqrstuvwxyz";
+  for (char &c : rev)
+    c = X[c - 'a'];
+  cout << X << "\n";
+  cout << rev << "\n";
   return 0;
 }

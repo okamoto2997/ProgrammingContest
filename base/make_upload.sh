@@ -40,3 +40,4 @@ sed "/^#include *<.*>/d" < ${SOURCE} > ${CONTENT}
 g++ -E -x c++ -I${DIR} -I${DIR}/../ -DNDEBUG ${CONTENT} | sed "/^#/d" | sed "/^ *$/d" >> ${SYSTEM_H}
 
 mv ${SYSTEM_H} ${DIR}/upload.cpp
+code ${DIR}/upload.cpp
