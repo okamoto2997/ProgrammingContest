@@ -127,4 +127,20 @@ public:
   }
 };
 
+std::vector<std::vector<u64>> comb(int n, u64 mod = 0) {
+  std::vector<std::vector<u64>> v(n + 1, std::vector<u64>(n + 1, 0));
+  for (size_t i = 0; i < v.size(); i++) {
+    v[i][0] = 1;
+    v[i][i] = 1;
+  }
+  if (mod == 0)
+    for (size_t j = 1; j < v.size(); j++)
+      for (size_t k = 1; k < j; k++)
+        v[j][k] = (v[j - 1][k - 1] + v[j - 1][k]);
+  else
+    for (size_t j = 1; j < v.size(); j++)
+      for (size_t k = 1; k < j; k++)
+        v[j][k] = ((v[j - 1][k - 1] + v[j - 1][k]) % mod);
+  return v;
+}
 } // namespace lib
