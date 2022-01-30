@@ -4,6 +4,7 @@
   "C_Cpp.loggingLevel": "Debug",
   "C_Cpp.formatting": "clangFormat",
   "files.associations": {
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "ostream": "cpp"
   }
 }
