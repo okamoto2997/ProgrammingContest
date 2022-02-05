@@ -2,15 +2,13 @@
 
 print_usage(){
   cat <<EOF
-Usage: ${0} [source_code]
-  -d dir
-    directorty contining executable. if -d is not set, obtained from -e
-  -e executable
-    executable to test. if -e is not set, "-e ./Main" is assumed.
+Usage: ${0} [source_code = "Main.cpp"]
   -h
     print this message and exit.
 EOF
 }
+
+SOURCE="Main.cpp"
 
 while [ -n "$*" ]; do
   OPT=$1
@@ -19,15 +17,16 @@ while [ -n "$*" ]; do
       print_usage
       exit
       ;;
+    * )
+      SOURCE=$1
+      ;;
   esac
   shift
 done
 
-SOURCE="Main.cpp"
 
-if [ -n "$1" ]; then
-  SOURCE=$1
-fi
+
+echo "Target: ${SOURCE}"
 
 DIR=`dirname $SOURCE`
 SYSTEM_H=`mktemp make_upload.system.h.XXXXXX`
