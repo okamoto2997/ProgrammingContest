@@ -1,9 +1,9 @@
 #pragma once
 
-#define LOG_LEVEL_NONE  0
+#define LOG_LEVEL_NONE 0
 #define LOG_LEVEL_ERROR 1
-#define LOG_LEVEL_WARN  2
-#define LOG_LEVEL_INFO  3
+#define LOG_LEVEL_WARN 2
+#define LOG_LEVEL_INFO 3
 #define LOG_LEVEL_DEBUG 4
 
 #ifndef LOG_LEVEL
@@ -11,39 +11,38 @@
 #endif
 
 #ifdef NDEBUG
-#  ifdef LOG_LEVEL
-#    undef  LOG_LEVEL
-#  endif
-#  define LOG_LEVEL LOG_LEVEL_NONE
+#ifdef LOG_LEVEL
+#undef LOG_LEVEL
+#endif
+#define LOG_LEVEL LOG_LEVEL_NONE
 #endif
 
 #if LOG_LEVEL > LOG_LEVEL_NONE
 #include <ctime>
 #include <filesystem>
 
-namespace log_system{
-  static std::reference_wrapper<std::ostream> _dest = std::ref(std::cerr);
-  inline void init(std::ostream& dest){
-    _dest = std::ref(dest);
-  }
-}
+namespace log_system {
+static std::reference_wrapper<std::ostream> _dest = std::ref(std::cerr);
+inline void init(std::ostream &dest) { _dest = std::ref(dest); }
+} // namespace log_system
 
-[[maybe_unused]] static const char* current_time(){
+[[maybe_unused]] static const char *current_time() {
   static char buf[20] = {};
   time_t t = time(nullptr);
-  tm* tp = localtime(&t);
+  tm *tp = localtime(&t);
   strftime(buf, 20, "%F %H:%M:%S", tp);
   return buf;
 }
 #endif
 
 #define ERROR_MSG(fmt, ...) MSG(Error, fmt, __VA_ARGS__)
-#define  WARN_MSG(fmt, ...) MSG( Warn, fmt, __VA_ARGS__)
-#define  INFO_MSG(fmt, ...) MSG( Info, fmt, __VA_ARGS__)
+#define WARN_MSG(fmt, ...) MSG(Warn, fmt, __VA_ARGS__)
+#define INFO_MSG(fmt, ...) MSG(Info, fmt, __VA_ARGS__)
 #define DEBUG_MSG(fmt, ...) MSG(Debug, fmt, __VA_ARGS__)
 
 #if LOG_LEVEL >= LOG_LEVEL_ERROR
-#define ERROR_TO(dest, fmt, ...) dest << ERROR_MSG(fmt, __VA_ARGS__) << std::endl
+#define ERROR_TO(dest, fmt, ...)                                               \
+  dest << ERROR_MSG(fmt, __VA_ARGS__) << std::endl
 #define ERROR(fmt, ...) ERROR_TO(log_system::_dest.get(), fmt, __VA_ARGS__)
 #else
 #define ERROR_TO(dest, fmt, ...)
@@ -67,18 +66,19 @@ namespace log_system{
 #endif
 
 #if LOG_LEVEL >= LOG_LEVEL_DEBUG
-#define DEBUG_TO(dest, fmt, ...) dest << DEBUG_MSG(fmt, __VA_ARGS__) << std::endl
+#define DEBUG_TO(dest, fmt, ...)                                               \
+  dest << DEBUG_MSG(fmt, __VA_ARGS__) << std::endl
 #define DEBUG(fmt, ...) DEBUG_TO(log_system::_dest.get(), fmt, __VA_ARGS__)
 #else
 #define DEBUG_TO(dest, fmt, ...)
 #define DEBUG(fmt, ...)
 #endif
 
-#define MSG(tag, _fmt, ...)                                             \
-  [&](){                                                                 \
-  static char buf[80];                                                  \
-  snprintf(buf, 80, "%s [%s:%3d] %-5s: " _fmt,                          \
-    current_time(), std::filesystem::path(__FILE__).filename().c_str(), \
-    __LINE__, #tag __VA_OPT__(,) __VA_ARGS__ );                          \
-  return buf;                                                           \
+#define MSG(tag, _fmt, ...)                                                    \
+  [&]() {                                                                      \
+    static char buf[256];                                                      \
+    snprintf(buf, 250, "%s [%s:%3d] %-5s: " _fmt, current_time(),              \
+             std::filesystem::path(__FILE__).filename().c_str(), __LINE__,     \
+             #tag __VA_OPT__(, ) __VA_ARGS__);                                 \
+    return buf;                                                                \
   }()

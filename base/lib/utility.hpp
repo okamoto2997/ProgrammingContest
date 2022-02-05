@@ -6,6 +6,7 @@ using i64 = int64_t;
 using u64 = uint64_t;
 
 constexpr u64 mod = 1000000007;
+constexpr u64 mod2 = 998244353;
 
 template <class T, class V> constexpr T max(const V &v) {
   return *max_element(begin(v), end(v));
