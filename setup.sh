@@ -39,3 +39,8 @@ echo "completed. Good luck!"
 cd ..
 
 bash 
+
+cd ../..
+
+git add $1 || exit 1
+git commit -m "$1" || exit 1
